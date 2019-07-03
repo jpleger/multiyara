@@ -14,4 +14,5 @@ RUN apk add -t .build-yara wget python-dev py-setuptools openssl-dev build-base 
 RUN chmod +x /build.sh /releases.py
 RUN /build.sh
 
+# Cleanup image after building
 RUN apk del --purge .build-yara && rm -rf /tmp/*
