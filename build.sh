@@ -40,12 +40,17 @@ for RELEASE in $RELEASE_LIST; do
 
     # check to see if yara actually runs...
     echo "Running yara version"
-    YARA_VERSION=$(/yara/${RELEASE}/yara --version)
+    YARA_VERSION="$(/yara/${RELEASE}/yara --version)"
+
+    # If it didn't work, bail out...
+    if [[ -z "$YARA_VERSION" ]]; then
+        exit 1
+    fi
 
     # link yara so you can run from $PATH
     ln -s /yara/${RELEASE}/yara /usr/local/bin/yara-${YARA_VERSION}
-
-    if [[ "${CLEANUP}" == "yes" ]]; then
-        rm -rf /tmp/*
-    fi
 done
+
+if [[ "${CLEANUP}" == "yes" ]]; then
+    rm -rf /tmp/*
+fi
