@@ -1,7 +1,6 @@
 #!/bin/sh
 RELEASE_LIST="$(./releases.py)"
 BASE_DIR="$(mktemp -d)"
-CLEANUP="yes"
 
 
 echo "Working in ${BASE_DIR}"
@@ -50,7 +49,3 @@ for RELEASE in $RELEASE_LIST; do
     # link yara so you can run from $PATH
     ln -s /yara/${RELEASE}/yara /usr/local/bin/yara-${YARA_VERSION}
 done
-
-if [[ "${CLEANUP}" == "yes" ]]; then
-    rm -rf /tmp/*
-fi
